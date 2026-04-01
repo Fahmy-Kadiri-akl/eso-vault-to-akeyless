@@ -6,3 +6,4 @@
 *.key
 *-token
 *-secret-id
+scripts/seed-vault-secrets.sh
