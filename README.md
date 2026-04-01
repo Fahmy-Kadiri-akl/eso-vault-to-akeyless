@@ -296,5 +296,5 @@ If this fails, the cluster network doesn't route metadata traffic. On microk8s, 
 - ESO: external-secrets (Helm, latest)
 - Vault: 1.21.2 (dev mode, KV v2)
 - Akeyless Gateway: 4.48.0
-- Akeyless auth: GCP workload identity (`p-ovnahqq21v65gm`)
+- Akeyless auth: GCP workload identity
 - All manifests use `external-secrets.io/v1` API

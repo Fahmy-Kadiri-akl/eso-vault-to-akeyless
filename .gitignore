@@ -1,2 +1,8 @@
 *.env
+.env*
+!.env.example
 .DS_Store
+*.pem
+*.key
+*-token
+*-secret-id

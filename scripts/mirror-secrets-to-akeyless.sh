@@ -8,7 +8,12 @@
 #   /demo-app/database/host -> "postgres.demo.svc.cluster.local"
 #
 # This script reads from Vault and creates the equivalent Akeyless secrets.
+# Values are read from .env -- see .env.example for the template.
 set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ENV_FILE="${ENV_FILE:-${SCRIPT_DIR}/../.env}"
+[ -f "$ENV_FILE" ] && set -a && source "$ENV_FILE" && set +a
 
 : "${VAULT_ADDR:?Set VAULT_ADDR}"
 : "${VAULT_TOKEN:?Set VAULT_TOKEN}"
