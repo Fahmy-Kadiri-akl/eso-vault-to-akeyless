@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      containers:
+        - name: app
+          image: busybox:1.36
+          command: ["sh", "-c", "sleep infinity"]
+          env:
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: host
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: port
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: username
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: password
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: database
+            - name: STRIPE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-keys
+                  key: stripe_key
+            - name: SENDGRID_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-keys
+                  key: sendgrid_key
+            - name: DATADOG_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-keys
+                  key: datadog_api_key
+            - name: APP_ENV
+              valueFrom:
+                secretKeyRef:
+                  name: app-config
+                  key: app_env
+            - name: LOG_LEVEL
+              valueFrom:
+                secretKeyRef:
+                  name: app-config
+                  key: log_level
+            - name: FEATURE_FLAGS
+              valueFrom:
+                secretKeyRef:
+                  name: app-config
+                  key: feature_flags
